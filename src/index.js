@@ -2,8 +2,12 @@ import express from 'express';
 
 const app = express();
 
+app.use((req, res, next) => {
+  console.log('Hello Ruslan');
+});
+
 app.get('/', (req, res, next) => {
-res.send('Hello word');
+res.send('Hello Ruslan');
 });
 
 app.listen(3000, () => {
