@@ -17,8 +17,9 @@ app.get('/', (req, res, next) => {
 res.send('Hello Ruslan');
 });
 
-app.use('*', (req, res) => {
-res.status(400).send('Oops! Route is not found');
+app.use((req, res,) => {
+res.status(404).send('Oops! Route is not found');
+
 });
 
 app.listen(3000, () => {
