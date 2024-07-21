@@ -1,13 +1,24 @@
 import express from 'express';
+import pino from 'pino-http';
+import cors from 'cors';
 
 const app = express();
 
-app.use((req, res, next) => {
-  console.log('Hello Ruslan');
-});
+app.use(pino({
+  transport: {
+    target: 'pino-pretty'
+  }
+}
+));
+
+app.use(cors());
 
 app.get('/', (req, res, next) => {
 res.send('Hello Ruslan');
+});
+
+app.use('*', (req, res) => {
+res.status(400).send('Oops! Route is not found');
 });
 
 app.listen(3000, () => {
