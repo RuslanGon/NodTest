@@ -2,6 +2,9 @@ import express from 'express';
 import pino from 'pino-http';
 import cors from 'cors';
 import { env } from './utils/env.js';
+import { ENV_WARS } from './constants/index.js';
+import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
+import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 
 
 export const startServer = () => {
@@ -21,13 +24,12 @@ app.get('/', (req, res, next) => {
 res.send('Hello Ruslan');
 });
 
-app.use((req, res,) => {
-res.status(404).send('Oops! Route is not found');
+app.use(notFoundMiddleware);
 
-});
+app.use(errorHandlerMiddleware);
 
 
-const PORT = env('PORT', 3000);
+const PORT = env(ENV_WARS.PORT, 3000);
 app.listen(PORT, () => {
     console.log(`server is running on ${PORT}`);
   });
