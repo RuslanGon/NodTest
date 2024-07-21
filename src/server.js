@@ -5,6 +5,7 @@ import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
+import { getAllStudents } from './services/students.js';
 
 
 export const startServer = () => {
@@ -20,9 +21,19 @@ app.use(pino({
 
 app.use(cors());
 
-app.get('/', (req, res, next) => {
-res.send('Hello Ruslan');
+app.get('/students', async (req, res, next) => {
+ const students = await getAllStudents();
+ res.json({
+  status: 200,
+  message: 'Successful get all students',
+  data: students
+ });
 });
+
+app.get('/students/:studentId', (req, res, next) => {
+
+});
+
 
 app.use(notFoundMiddleware);
 
