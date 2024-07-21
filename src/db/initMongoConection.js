@@ -13,10 +13,13 @@ export const initMongoConection = async () => {
     console.log('Connection link:', conectionLink);
 
     try {
-      await mongoose.connect(conectionLink, { useNewUrlParser: true, useUnifiedTopology: true });
-      console.log('MongoDB connection successful');
+      await mongoose.connect(conectionLink, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log('MongoDB connection successful!');
     } catch (err) {
       console.error('Error connecting to MongoDB:', err);
-  throw err;
+      throw err;
     }
   };
