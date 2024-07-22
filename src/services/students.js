@@ -24,13 +24,14 @@ export const deleteStudentById = async (studentId) => {
 await Student.findByIdAndDelete(studentId);
 };
 
-export const upsertStudent = async (id, payload) => {
+export const upsertStudent = async (id, payload, options = {}) => {
   const student = await Student.findByIdAndUpdate(
     id,
     payload,
     {
-      new: true,        // Возвращает обновленный документ
-      upsert: true,     // Создает документ, если он не существует
+      new: true,  // Возвращает обновленный документ
+      ...options, // Создает документ, если он не существует
+      includeResultMetadata: true,
       runValidators: true // Запускает валидаторы для полей
     }
   );

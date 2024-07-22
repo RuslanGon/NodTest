@@ -57,3 +57,16 @@ export const getStudentByIdController = async (req, res) => {
   };
 
 
+
+  export const putStudentController = async (req, res) => {
+    const { body } = req;
+    const { studentId } = req.params;
+  const student = await upsertStudent(studentId, body, { upsert: true });
+
+  res.status(200).json({
+    status: 200,
+    message: 'Successful patched student',
+    data: student
+   });
+  };
+
