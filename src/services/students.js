@@ -25,16 +25,15 @@ await Student.findByIdAndDelete(studentId);
 };
 
 export const upsertStudent = async (id, payload, options = {}) => {
-  const student = await Student.findByIdAndUpdate(
-    id,
-    payload,
-    {
-      new: true,  // Возвращает обновленный документ
-      ...options, // Создает документ, если он не существует
-      includeResultMetadata: true,
-      runValidators: true // Запускает валидаторы для полей
-    }
-  );
-  return student;
+  const rawResult = await Student.findByIdAndUpdate(id, payload, {
+    new: true, // Возвращает обновленный документ
+    ...options, // Создает документ, если он не существует
+    includeResultMetadata: true,
+    runValidators: true, // Запускает валидаторы для полей
+  });
+  return {
+    student: rawResult.value,
+    isNew: Boolean(rawResult.lastErrorObject.upserted),
+  };
 };
 
