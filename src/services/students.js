@@ -1,9 +1,15 @@
 import { Student } from "../db/models/student.js";
+import createHttpError from 'http-errors';
 
 export const getAllStudents = async () => {
 return await Student.find({});
 };
 
 export const getStudentById = async (id) => {
-return await Student.findById(id);
+const student =  await Student.findById(id);
+
+if(!student){
+   throw createHttpError(404, 'Student not found');
+  }
+  return student;
 };
