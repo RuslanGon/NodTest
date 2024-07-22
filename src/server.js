@@ -21,6 +21,10 @@ app.use(pino({
 
 app.use(cors());
 
+app.use(express.json({
+type: ['application/json', 'application/vnd.api+json']
+}));
+
 app.use(studentRouter);
 
 app.use(notFoundMiddleware);
