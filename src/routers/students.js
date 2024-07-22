@@ -6,7 +6,6 @@ const studentRouter = Router();
 
 studentRouter.get('/students', getStudentsController);
 
-
 studentRouter.get('/students/:studentId', getStudentByIdController );
 
 export default  studentRouter;
