@@ -25,7 +25,15 @@ await Student.findByIdAndDelete(studentId);
 };
 
 export const upsertStudent = async (id, payload) => {
-  const student = await Student.updateOne({_id: id}, payload);
+  const student = await Student.findByIdAndUpdate(
+    id,
+    payload,
+    {
+      new: true,        // Возвращает обновленный документ
+      upsert: true,     // Создает документ, если он не существует
+      runValidators: true // Запускает валидаторы для полей
+    }
+  );
   return student;
 };
 
