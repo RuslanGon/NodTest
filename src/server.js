@@ -5,7 +5,7 @@ import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
-import { getAllStudents, getStudentById } from './services/students.js';
+import studentRouter from './routers/students.js';
 
 
 export const startServer = () => {
@@ -21,33 +21,7 @@ app.use(pino({
 
 app.use(cors());
 
-app.get('/students', async (req, res) => {
- const students = await getAllStudents();
- res.json({
-  status: 200,
-  message: 'Successful get all students',
-  data: students
- });
-});
-
-app.get('/students/:studentId', async (req, res) => {
-  const id = req.params.studentId;
-const student = await getStudentById(id);
-
-if(!student){
-  res.status(404).json({
-    status: 404,
-    message: 'not found student by id',
-   });
-}
-
-res.json({
-  status: 200,
-  message: 'Successful get student by id',
-  data: student
- });
-});
-
+app.use(studentRouter);
 
 app.use(notFoundMiddleware);
 
