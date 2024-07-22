@@ -1,4 +1,5 @@
 import createHttpError from 'http-errors';
+import { MongooseError } from 'mongoose';
 
 export const errorHandlerMiddleware = (error, req, res, next) => {
   if (error instanceof createHttpError.HttpError) {
@@ -6,10 +7,17 @@ export const errorHandlerMiddleware = (error, req, res, next) => {
       status: error.status,
       message: error.message,
     });
-  } else {
-    res.status(500).json({
+  }
+
+  if (error instanceof MongooseError) {
+    return res.status(500).json({
       status: 500,
-      message: 'Internal Server Error',
+      message: 'Mongoose error',
     });
   }
+
+  res.status(500).json({
+    status: 500,
+    message: 'Internal Server Error',
+  });
 };
