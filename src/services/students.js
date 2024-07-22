@@ -33,7 +33,7 @@ export const upsertStudent = async (id, payload, options = {}) => {
   });
   return {
     student: rawResult.value,
-    isNew: Boolean(rawResult.lastErrorObject.upserted),
+    isNew: !rawResult?.lastErrorObject?.updatedExisting,
   };
 };
 
