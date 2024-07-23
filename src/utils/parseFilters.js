@@ -4,10 +4,17 @@ const parseIntFilter = (unknown) => {
     return isNaN(parsed) ? undefined : parsed;
   };
 
-  export const parseGender = (unknown) => {
+ const parseGender = (unknown) => {
     const validGenders = ['male', 'female', 'other'];
     return validGenders.includes(unknown) ? unknown : undefined;
   };
+
+  const parseBoolean = (unknown) => {
+   if(!['true', 'false'].includes(unknown))return;
+   return unknown === 'true' ? true : false;
+  };
+
+
 
   export const parseFilters = (query) => {
     const {
