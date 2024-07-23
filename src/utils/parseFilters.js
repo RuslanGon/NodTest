@@ -4,6 +4,11 @@ const parseIntFilter = (unknown) => {
     return isNaN(parsed) ? undefined : parsed;
   };
 
+  export const parseGender = (unknown) => {
+    const validGenders = ['male', 'female', 'other'];
+    return validGenders.includes(unknown) ? unknown : undefined;
+  };
+
   export const parseFilters = (query) => {
     const {
       minAge,
@@ -19,7 +24,7 @@ const parseIntFilter = (unknown) => {
       maxAge: parseIntFilter(maxAge),
       minAvgMark: parseIntFilter(minAvgMark),
       maxAvgMark: parseIntFilter(maxAvgMark),
-      gender: gender,
+      gender: parseGender(gender),
       onDuty: onDuty === 'true' || onDuty === 'false' ? onDuty === 'true' : undefined
     };
   };
