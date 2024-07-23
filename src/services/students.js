@@ -16,10 +16,19 @@ export const createPaginationInformation = (page, perPage, count) => {
   };
 };
 
-export const getAllStudents = async ({ page = 1, perPage = 5 }) => {
+export const getAllStudents = async ({
+  page = 1,
+  perPage = 5,
+  sortBy = '_id',
+  sortOrder = 'asc' }) => {
   const skip = (page - 1) * perPage;
-  const studentsCount = await Student.find().countDocuments();
-  const students = await Student.find({}).skip(skip).limit(perPage);
+
+  const [studentsCount, students] = new Promise.all([
+    Student.find().countDocuments(),
+    Student.find({}).skip(skip).limit(perPage).sort({
+      [sortBy]: sortOrder,
+    }),
+  ]);
 
   const paginationInformation = createPaginationInformation(page, perPage, studentsCount);
   return {
