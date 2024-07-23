@@ -13,11 +13,13 @@ import { validationMongoId } from '../middlewares/validationMongoId.js';
 
 const studentRouter = Router();
 
+studentRouter.use('/students/:studentId', validationMongoId('studentId'));
+
+
 studentRouter.get('/students', ctrlWrapper(getStudentsController));
 
 studentRouter.get(
   '/students/:studentId',
-  validationMongoId('studentId'),
   ctrlWrapper(getStudentByIdController),
 );
 
@@ -27,19 +29,16 @@ studentRouter.post(
 
 studentRouter.patch(
   '/students/:studentId',
-  validationMongoId('studentId'),
   ctrlWrapper(patchStudentController),
 );
 
 studentRouter.put(
   '/students/:studentId',
-  validationMongoId('studentId'),
   ctrlWrapper(putStudentController),
 );
 
 studentRouter.delete(
   '/students/:studentId',
-  validationMongoId('studentId'),
   ctrlWrapper(deleteStudentByIdController),
 );
 
