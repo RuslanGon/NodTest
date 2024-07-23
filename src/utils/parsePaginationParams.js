@@ -1,5 +1,9 @@
-const parseNumber = (unknow, defaultNumber) => {
-if(typeof unknow !== 'string')return defaultNumber;
+const parseNumber = (unknown, defaultNumber) => {
+if(typeof unknown !== 'string')return defaultNumber;
+const parsedNumber = parseInt(unknown, 10);
+
+if(Number.isNaN(parsedNumber)) return defaultNumber;
+return parseNumber;
 };
 
 

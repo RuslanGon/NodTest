@@ -1,8 +1,9 @@
 import { Student } from "../db/models/student.js";
 import createHttpError from 'http-errors';
 
-export const getAllStudents = async () => {
-return await Student.find({});
+export const getAllStudents = async ({ page = 1, perPage = 5 }) => {
+  const skip = (page - 1) * perPage;
+  return await Student.find({}).skip(skip).limit(perPage);
 };
 
 export const getStudentById = async (id) => {
