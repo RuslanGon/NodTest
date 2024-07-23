@@ -23,43 +23,42 @@ export const getAllStudents = async ({
   sortOrder = 'asc',
   filter = {}
 }) => {
-const skip = (page - 1) * perPage;
+  const skip = (page - 1) * perPage;
 
-const studentsFilter = Student.find();
+  const studentsQuery = Student.find();
 
-if (filter.minAge) {
-  studentsFilter.where('age').gte(filter.minAge);
-}
-if (filter.maxAge) {
-  studentsFilter.where('age').lte(filter.maxAge);
-}
-if (filter.minAvgMark) {
-  studentsFilter.where('avgMark').gte(filter.minAvgMark);
-}
-if (filter.maxAvgMark) {
-  studentsFilter.where('avgMark').lte(filter.maxAvgMark);
-}
-if (filter.gender) {
-  studentsFilter.where('gender').equals(filter.gender);
-}
-if (filter.onDuty !== undefined) {
-  studentsFilter.where('onDuty').equals(filter.onDuty);
-}
+  if (filter.minAge) {
+    studentsQuery.where('age').gte(filter.minAge);
+  }
+  if (filter.maxAge) {
+    studentsQuery.where('age').lte(filter.maxAge);
+  }
+  if (filter.minAvgMark) {
+    studentsQuery.where('avgMark').gte(filter.minAvgMark);
+  }
+  if (filter.maxAvgMark) {
+    studentsQuery.where('avgMark').lte(filter.maxAvgMark);
+  }
+  if (filter.gender) {
+    studentsQuery.where('gender').equals(filter.gender);
+  }
+  if (filter.onDuty !== undefined) {
+    studentsQuery.where('onDuty').equals(filter.onDuty);
+  }
 
-
-  const [studentsCount, students] = new Promise.all([
-    Student.find().merge(studentsFilter).countDocuments(),
-    studentsFilter.skip(skip).limit(perPage).sort({
-      [sortBy]: sortOrder,
-    }).exec(),
+  const [studentsCount, students] = await Promise.all([
+    Student.countDocuments(studentsQuery.getFilter()),
+    studentsQuery.skip(skip).limit(perPage).sort({ [sortBy]: sortOrder === 'asc' ? 1 : -1 }).exec(),
   ]);
 
   const paginationInformation = createPaginationInformation(page, perPage, studentsCount);
+
   return {
     students,
     ...paginationInformation
   };
 };
+
 
 export const getStudentById = async (id) => {
 const student =  await Student.findById(id);
@@ -75,6 +74,7 @@ export const createStudent = async (payload) => {
 
   return student;
 };
+
 
 export const deleteStudentById = async (studentId) => {
 await Student.findByIdAndDelete(studentId);
