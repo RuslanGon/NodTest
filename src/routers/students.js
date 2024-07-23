@@ -17,7 +17,7 @@ studentRouter.get('/students', ctrlWrapper(getStudentsController));
 
 studentRouter.get(
   '/students/:studentId',
-  validationMongoId,
+  validationMongoId('studentId'),
   ctrlWrapper(getStudentByIdController),
 );
 
@@ -27,19 +27,19 @@ studentRouter.post(
 
 studentRouter.patch(
   '/students/:studentId',
-  validationMongoId,
+  validationMongoId('studentId'),
   ctrlWrapper(patchStudentController),
 );
 
 studentRouter.put(
   '/students/:studentId',
-  validationMongoId,
+  validationMongoId('studentId'),
   ctrlWrapper(putStudentController),
 );
 
 studentRouter.delete(
   '/students/:studentId',
-  validationMongoId,
+  validationMongoId('studentId'),
   ctrlWrapper(deleteStudentByIdController),
 );
 

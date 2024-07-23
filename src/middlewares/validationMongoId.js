@@ -1,12 +1,18 @@
 import { Types } from 'mongoose';
 import createHttpError from 'http-errors';
 
-export const validationMongoId = (req, res, next) => {
-  const id = req.params.studentId;
+export const validationMongoId =
+  (idName = 'id') =>
+  (req, res, next) => {
+    const id = req.params[idName];
 
-  if (!Types.ObjectId.isValid(id)) {
-    return next(createHttpError(400, 'Invalid id'));
-  }
+    if (!id) {
+      throw new Error('id in validationMongoId is not provider ');
+    }
 
-  next();
-};
+    if (!Types.ObjectId.isValid(id)) {
+      return next(createHttpError(400, 'Invalid id'));
+    }
+
+    next();
+  };
