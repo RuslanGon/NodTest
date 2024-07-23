@@ -1,6 +1,18 @@
 import { Student } from "../db/models/student.js";
 import createHttpError from 'http-errors';
 
+export const createPaginationInformation = (page, perPage, count) => {
+
+  return {
+    page,
+    perPage,
+    totalItems: count,
+    totalPages,
+    hasPreviousPage,
+    hasNextPage,
+  };
+};
+
 export const getAllStudents = async ({ page = 1, perPage = 5 }) => {
   const skip = (page - 1) * perPage;
   return await Student.find({}).skip(skip).limit(perPage);
