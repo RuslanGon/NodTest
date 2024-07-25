@@ -6,11 +6,14 @@ import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 import rootRouter from './routers/index.js';
+import cookieParser from 'cookie-parser';
 
 
 export const startServer = () => {
 
 const app = express();
+
+app.use(cookieParser());
 
 app.use(pino({
   transport: {

@@ -27,6 +27,8 @@ export const loginUser = async ({ email, password }) => {
     throw createHttpError(401, 'Invalid password');
   }
 
+await Session.deleteOne({userId: user._id});
+
   const accessToken = crypto.randomBytes(10).toString('base64');
   const refreshToken = crypto.randomBytes(10).toString('base64');
 
@@ -34,8 +36,8 @@ export const loginUser = async ({ email, password }) => {
     accessToken,
     refreshToken,
     userId: user._id,
-    accessTokenValidUntil,
-    refreshTokenValidUntil,
+    accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000), // 15 минут
+    refreshTokenValidUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 дней
 
   });
 
