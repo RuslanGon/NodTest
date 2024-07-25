@@ -9,4 +9,4 @@ export const userSchema = new Schema({
     versionKey: false
 });
 
-export const user = model('user', userSchema);
+export const User = model('users', userSchema);

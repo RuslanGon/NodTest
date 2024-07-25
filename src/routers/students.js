@@ -14,34 +14,34 @@ import { createStudentSchema } from '../validation/createStudentSchema.js';
 import { updateStudentSchema } from '../validation/updateStudentSchema.js';
 
 const studentRouter = Router();
-studentRouter.use('/students/:studentId', validationMongoId('studentId'));
+studentRouter.use('/:studentId', validationMongoId('studentId'));
 
 
-studentRouter.get('/students',
+studentRouter.get('/',
 ctrlWrapper(getStudentsController));
 
 studentRouter.get(
-  '/students/:studentId',
+  '/:studentId',
   ctrlWrapper(getStudentByIdController),
 );
 
 studentRouter.post(
-  '/students',
+  '/',
   validationBody(createStudentSchema),
   ctrlWrapper(createStudentController),
 );
 
 studentRouter.patch(
-  '/students/:studentId',
+  '/:studentId',
   validationBody(updateStudentSchema),
   ctrlWrapper(patchStudentController),
 );
 
-studentRouter.put('/students/:studentId',
+studentRouter.put('/:studentId',
 ctrlWrapper(putStudentController));
 
 studentRouter.delete(
-  '/students/:studentId',
+  '/:studentId',
   ctrlWrapper(deleteStudentByIdController),
 );
 

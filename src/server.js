@@ -5,7 +5,7 @@ import { env } from './utils/env.js';
 import { ENV_VARS } from './constants/index.js';
 import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js';
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
-import studentRouter from './routers/students.js';
+import rootRouter from './routers/index.js';
 
 
 export const startServer = () => {
@@ -25,7 +25,7 @@ app.use(express.json({
 type: ['application/json', 'application/vnd.api+json']
 }));
 
-app.use(studentRouter);
+app.use(rootRouter);
 
 app.use(notFoundMiddleware);
 
