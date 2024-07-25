@@ -1,4 +1,4 @@
-import { required } from "joi";
+
 import { Schema, model } from "mongoose";
 
 export const sessionSchema = new Schema({
@@ -12,10 +12,5 @@ export const sessionSchema = new Schema({
     versionKey: false
 });
 
-sessionSchema.method.toJSON = function () {
-const obj = this.toObject();
-delete obj.password;
-return obj;
-};
 
 export const Session = model('session', sessionSchema);

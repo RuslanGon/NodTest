@@ -2,6 +2,7 @@ import { User } from "../db/models/user.js";
 import createHttpError from 'http-errors';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import { Session } from "../db/models/session.js";
 
 export const createUser = async (payload) => {
   const user = await User.findOne({ email: payload.email });
@@ -28,6 +29,15 @@ export const loginUser = async ({ email, password }) => {
 
   const accessToken = crypto.randomBytes(10).toString('base64');
   const refreshToken = crypto.randomBytes(10).toString('base64');
+
+  await Session.create({
+    accessToken,
+    refreshToken,
+    userId: user._id,
+    accessTokenValidUntil,
+    refreshTokenValidUntil,
+
+  });
 
   return { user, accessToken, refreshToken };
 };
