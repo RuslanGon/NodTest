@@ -1,6 +1,6 @@
 import { Schema, model } from "mongoose";
 
-export const  usersSchema = new Schema({
+export const  userSchema = new Schema({
     name: {type: String, required: true},
     age: {type: Number, required: true},
     gender: {type: String, required: true, enum: ['male', 'female', 'other']},
@@ -11,4 +11,4 @@ timestamps: true,
 versionKey: false
 });
 
-export const User = model('students', usersSchema);
+export const user = model('user', userSchema);
