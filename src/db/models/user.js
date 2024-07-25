@@ -1,14 +1,12 @@
 import { Schema, model } from "mongoose";
 
-export const  userSchema = new Schema({
-    name: {type: String, required: true},
-    age: {type: Number, required: true},
-    gender: {type: String, required: true, enum: ['male', 'female', 'other']},
-    avgMark: {type: Number, required: true, min: 1, max: 12},
-    onDuty: {type: Boolean, default: false}
+export const userSchema = new Schema({
+    name: { type: String, required: true },
+    password: { type: String, required: true },
+    email: { type: String, required: true, unique: true },
 }, {
-timestamps: true,
-versionKey: false
+    timestamps: true,
+    versionKey: false
 });
 
 export const user = model('user', userSchema);
