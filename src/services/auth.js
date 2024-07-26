@@ -50,3 +50,19 @@ export const logoutUser = async ({sessionId, sessionToken}) => {
     _id: sessionId,
     refreshToken: sessionToken });
 };
+
+
+export const refreshSession = async({sessionId, sessionToken}) => {
+const session  = await Session.findOne({
+  _id: sessionId,
+  refreshToken: sessionToken
+});
+
+if(!session){
+throw createHttpError(401, 'Session is not found');
+}
+
+if(new Date() > session.refreshTokenValidUntil){
+throw createHttpError(401, 'Session is not found');
+}
+};
