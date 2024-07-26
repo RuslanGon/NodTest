@@ -13,7 +13,7 @@ const setudSessionCookies = (res, session) => {
 };
 
 
-export const registorUserController = async (req, res, next) => {
+export const registorUserController = async (req, res) => {
 const user = await createUser(req.body);
 
 res.json({
@@ -24,7 +24,7 @@ data: {user}
 };
 
 
-export const loginUserController = async (req, res, next) => {
+export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
 
   setudSessionCookies(res, session);
@@ -37,7 +37,7 @@ export const loginUserController = async (req, res, next) => {
 };
 
 
-export const logoutController = async (req, res, next) => {
+export const logoutController = async (req, res) => {
 
   await logoutUser({
     sessionId : req.cookies.sessionId,
@@ -56,7 +56,7 @@ export const logoutController = async (req, res, next) => {
 };
 
 
-export const refreshTokenController = async (req, res, next) => {
+export const refreshTokenController = async (req, res) => {
 const {sessionId, sessionToken} = req.cookies;
 const session =  await refreshSession({sessionId, sessionToken});
 
@@ -64,7 +64,7 @@ setudSessionCookies(res, session);
 
 res.json({
   status: 200,
-  message: 'User is loggin in',
+  message: 'Token refreshed successfully',
   data: { accessToken: session.accessToken },
 });
 };
