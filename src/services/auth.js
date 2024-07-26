@@ -43,3 +43,10 @@ await Session.deleteOne({userId: user._id});
 
   return { user, accessToken, refreshToken };
 };
+
+
+export const logoutUser = async ({sessionId, sessionToken}) => {
+  return await Session.deleteOne({
+    _id: sessionId,
+    refreshToken: sessionToken });
+};
