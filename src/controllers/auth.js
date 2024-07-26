@@ -1,5 +1,18 @@
 import { createUser, loginUser, logoutUser, refreshSession } from "../services/auth.js";
 
+const setudSessionCookies = (res, session) => {
+  res.cookie('sessionId', session._id, {
+    httpOnly: true,
+    expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 дней
+  });
+
+  res.cookie('sessionToken', session.refreshToken, {
+    httpOnly: true,
+    expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 дней
+  });
+};
+
+
 export const registorUserController = async (req, res, next) => {
 const user = await createUser(req.body);
 
@@ -14,15 +27,7 @@ data: {user}
 export const loginUserController = async (req, res, next) => {
   const session = await loginUser(req.body);
 
-  res.cookie('sessionId', session._id, {
-    httpOnly: true,
-    expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 дней
-  });
-
-  res.cookie('sessionToken', session.refreshToken, {
-    httpOnly: true,
-    expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 дней
-  });
+  setudSessionCookies(res, session);
 
   res.json({
     status: 200,
@@ -55,15 +60,7 @@ export const refreshTokenController = async (req, res, next) => {
 const {sessionId, sessionToken} = req.cookies;
 const session =  await refreshSession({sessionId, sessionToken});
 
-res.cookie('sessionId', session._id, {
-  httpOnly: true,
-  expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 дней
-});
-
-res.cookie('sessionToken', session.refreshToken, {
-  httpOnly: true,
-  expire: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 дней
-});
+setudSessionCookies(res, session);
 
 res.json({
   status: 200,
