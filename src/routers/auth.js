@@ -14,7 +14,7 @@ ctrlWrapper(loginUserController));
 
 userRouter.post('/refresh-token',);
 
-userRouter.post('/logout');
+userRouter.post('/logout', ctrlWrapper());
 
 
 export default userRouter;
