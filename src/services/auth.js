@@ -4,6 +4,16 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { Session } from "../db/models/session.js";
 
+const createSession = () => {
+
+  return {
+    accessToken:crypto.randomBytes(10).toString('base64'),
+    refreshToken:crypto.randomBytes(10).toString('base64'),
+    accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000), // 15 минут
+    refreshTokenValidUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 дней
+  };
+};
+
 export const createUser = async (payload) => {
   const user = await User.findOne({ email: payload.email });
 
@@ -29,19 +39,11 @@ export const loginUser = async ({ email, password }) => {
 
 await Session.deleteOne({userId: user._id});
 
-  const accessToken = crypto.randomBytes(10).toString('base64');
-  const refreshToken = crypto.randomBytes(10).toString('base64');
 
-  await Session.create({
-    accessToken,
-    refreshToken,
+  return await Session.create({
     userId: user._id,
-    accessTokenValidUntil: new Date(Date.now() + 15 * 60 * 1000), // 15 минут
-    refreshTokenValidUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 дней
-
+    ...createSession(),
   });
-
-  return { user, accessToken, refreshToken };
 };
 
 
@@ -63,6 +65,20 @@ throw createHttpError(401, 'Session is not found');
 }
 
 if(new Date() > session.refreshTokenValidUntil){
-throw createHttpError(401, 'Session is not found');
+throw createHttpError(401, 'Session is expired');
 }
+
+const user = await User.findById(session.userId);
+if(!user){
+  throw createHttpError(401, 'Session is not found');
+  }
+
+  await Session.deleteOne({
+    _id: sessionId,
+  });
+
+  return await Session.create({
+    userId: user._id,
+    ...createSession(),
+  });
 };
