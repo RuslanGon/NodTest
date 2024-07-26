@@ -5,7 +5,6 @@ import crypto from 'crypto';
 import { Session } from "../db/models/session.js";
 
 const createSession = () => {
-
   return {
     accessToken:crypto.randomBytes(10).toString('base64'),
     refreshToken:crypto.randomBytes(10).toString('base64'),
