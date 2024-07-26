@@ -15,9 +15,9 @@ import { updateStudentSchema } from '../validation/updateStudentSchema.js';
 import { authenticate } from '../middlewares/authenticate.js';
 
 const studentRouter = Router();
-studentRouter.use('/', authenticate);
 
 studentRouter.use('/:studentId', validationMongoId('studentId'));
+studentRouter.use('/', authenticate);
 
 
 studentRouter.get('/',
