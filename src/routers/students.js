@@ -12,8 +12,11 @@ import { validationMongoId } from '../middlewares/validationMongoId.js';
 import { validationBody } from '../middlewares/validationBody.js';
 import { createStudentSchema } from '../validation/createStudentSchema.js';
 import { updateStudentSchema } from '../validation/updateStudentSchema.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const studentRouter = Router();
+studentRouter.use('/', authenticate);
+
 studentRouter.use('/:studentId', validationMongoId('studentId'));
 
 
