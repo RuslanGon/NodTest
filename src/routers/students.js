@@ -13,6 +13,7 @@ import { validationBody } from '../middlewares/validationBody.js';
 import { createStudentSchema } from '../validation/createStudentSchema.js';
 import { updateStudentSchema } from '../validation/updateStudentSchema.js';
 import { authenticate } from '../middlewares/authenticate.js';
+import { checkRoles } from '../middlewares/checkRoles.js';
 
 const studentRouter = Router();
 
@@ -36,6 +37,7 @@ studentRouter.post(
 
 studentRouter.patch(
   '/:studentId',
+  checkRoles('teacher', 'parent'),
   validationBody(updateStudentSchema),
   ctrlWrapper(patchStudentController),
 );
