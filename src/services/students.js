@@ -72,8 +72,8 @@ if(!student){
   return student;
 };
 
-export const createStudent = async (payload) => {
-  const student = await Student.create(payload);
+export const createStudent = async (payload, userId) => {
+  const student = await Student.create({...payload, parentId: userId});
 
   return student;
 };
