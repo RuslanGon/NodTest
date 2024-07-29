@@ -12,7 +12,8 @@ const students = await getAllStudents({
   perPage,
   sortBy,
   sortOrder,
-  filter
+  filter,
+  userId: req.user._Id
 });
     res.json({
      status: 200,
