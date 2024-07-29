@@ -21,7 +21,8 @@ export const getAllStudents = async ({
   perPage = 5,
   sortBy = '_id',
   sortOrder = 'asc',
-  filter = {}
+  filter = {},
+  userId
 }) => {
   const skip = (page - 1) * perPage;
 
@@ -45,6 +46,8 @@ export const getAllStudents = async ({
   if (filter.onDuty !== undefined) {
     studentsQuery.where('onDuty').equals(filter.onDuty);
   }
+
+  studentsFilter.where('parentId').equals(userId);
 
   const [studentsCount, students] = await Promise.all([
     Student.countDocuments(studentsQuery.getFilter()),
