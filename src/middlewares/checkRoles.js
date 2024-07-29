@@ -30,9 +30,9 @@ export const checkRoles = (...roles) => async (req, res, next) => {
 
       return next();
     } catch (error) {
-      return next(createHttpError(500, 'Server error'));
+      return next(error);
     }
   }
 
-  next();
+  return next(createHttpError(403, 'Role not supported'));
 };
