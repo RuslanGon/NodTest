@@ -8,6 +8,8 @@ import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 import rootRouter from './routers/index.js';
 import cookiesParser from 'cookie-parser';
 
+
+
 export const startServer = () => {
 
 const app = express();
