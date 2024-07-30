@@ -4,9 +4,9 @@ import { env } from '../utils/env.js';
 
 const transport = nodemailer.createTransport({
   host: env(ENV_VARS.SMTP_HOST),
-  port: 587,
+  port: env(ENV_VARS.SMTP_PORT),
   auth: {
-user: 'user',
-pass: 'pass'
+user: env(ENV_VARS.SMTP_USER),
+pass: env(ENV_VARS.SMTP_PASSWORD)
   }
 });
