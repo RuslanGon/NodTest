@@ -3,7 +3,7 @@ import { ENV_VARS } from '../constants/index.js';
 import { env } from '../utils/env.js';
 
 const transport = nodemailer.createTransport({
-  host: env(ENV_VARS),
+  host: env(ENV_VARS.SMTP_HOST),
   port: 587,
   auth: {
 user: 'user',
