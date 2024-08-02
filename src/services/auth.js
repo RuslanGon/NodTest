@@ -122,6 +122,8 @@ const hashedPassword = await bcrypt.hash(password, 10);
 
 await User.findOneAndUpdate({
   _id: tokenPayload.sub,
-  email:
-});
+  email: tokenPayload.email
+},
+{ password: hashedPassword}
+);
 };
