@@ -103,6 +103,7 @@ try{
       ${token}">Reset Password</a></p>
     `,
     to: email,
+    from: env(ENV_VARS.SMTP_USER),
     subject: 'Reset your password',
   });
 }catch(err){
