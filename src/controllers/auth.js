@@ -1,4 +1,4 @@
-import { createUser, loginUser, logoutUser, refreshSession, resetRequestPasswordEmail } from "../services/auth.js";
+import { createUser, loginUser, logoutUser, refreshSession, resetPassword, resetRequestPasswordEmail } from "../services/auth.js";
 
 const setudSessionCookies = (res, session) => {
   res.cookie('sessionId', session._id, {
@@ -76,7 +76,7 @@ res.json({
 
 
 export const resetPasswordController = async (req, res) => {
-  await resetRequestPasswordEmail(req.body.email);
+  await resetPassword(req.body);
 
   res.json({
     status: 200,

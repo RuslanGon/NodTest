@@ -114,3 +114,14 @@ throw createHttpError(500, 'Problem with sending emails');
 }
 
 };
+
+export const resetPassword = async ({token, password}) => {
+const tokenPayload = jwt.verify(token, env(ENV_VARS.JWT_SECRET));
+
+const hashedPassword = await bcrypt.hash(password, 10);
+
+await User.findOneAndUpdate({
+  _id: tokenPayload.sub,
+  email:
+});
+};
