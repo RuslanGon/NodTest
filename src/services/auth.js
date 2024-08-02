@@ -89,8 +89,10 @@ export const resetRequestPasswordEmail = async (email) => {
     throw createHttpError(404, 'User not found');
   }
 
-  const token = jwt.sign(
-    { email },
+  const token = jwt.sign({
+    sub: user._id,
+    email
+  },
     env(ENV_VARS.JWT_SECRET),
     { expiresIn: '5m' }
   );
