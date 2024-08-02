@@ -6,6 +6,7 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { Session } from "../db/models/session.js";
 import { ENV_VARS } from "../constants/index.js";
+import { sendMail } from "../utils/sendMail.js";
 
 
 
@@ -95,8 +96,20 @@ if(!user){
 throw createHttpError(404, 'User is not found');
 }
 
-const token = jwt.sign({
-  email,
-}, env(ENV_VARS.JWT_SECRET));
+const token = jwt.sign(
+  {
+    email,
+  },
+  env(ENV_VARS.JWT_SECRET),
+  {
+    expiresIn: '5m',
+  },
+);
+
+await sendMail({
+html: `<h1>Hello Ruslan</h1>
+<p> Here is oyur reset link</p>
+`
+});
 
 };
