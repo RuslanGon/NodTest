@@ -12,4 +12,8 @@ pass: env(ENV_VARS.SMTP_PASSWORD)
   from: env(ENV_VARS.SMTP_USER)
 });
 
-export default transport;
+export const sendMail = async (options) => {
+return await transport.sendMail(options);
+};
+
+// export default transport;
