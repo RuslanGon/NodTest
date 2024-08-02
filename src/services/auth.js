@@ -92,5 +92,6 @@ if(!user){
 throw createHttpError(404, 'User is not found');
 }
 
+const token = jwt.sign();
 
 };
