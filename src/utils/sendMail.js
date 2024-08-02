@@ -16,4 +16,4 @@ export const sendMail = async (options) => {
 return await transport.sendMail(options);
 };
 
-// export default transport;
+

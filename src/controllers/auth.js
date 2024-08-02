@@ -64,3 +64,6 @@ res.json({
 });
 };
 
+export const resetRequestEmail = async (req, res) => {
+await resetRequestPasswordEmail(req.body.email);
+};
