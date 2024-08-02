@@ -4,9 +4,14 @@ import jwt from 'jsonwebtoken';
 import { env } from "../utils/env.js";
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
+import handlebars from 'handlebars';
+import fs from 'node:fs/promises';
+import path from 'node:path';
 import { Session } from "../db/models/session.js";
-import { ENV_VARS } from "../constants/index.js";
+import { ENV_VARS, TEMLATE_DIR } from "../constants/index.js";
 import { sendMail } from "../utils/sendMail.js";
+
+
 
 const createSession = () => {
   return {
@@ -97,13 +102,21 @@ export const resetRequestPasswordEmail = async (email) => {
     { expiresIn: '5m' }
   );
 
+
+  const templateSource = await fs.readFile(
+    path.join(TEMLATE_DIR, 'reset-password-email.html'),
+  );
+
+const template = handlebars.compile(templateSource.toString());
+
+const html = template({
+  name: user.name,
+  link: `http://yourdomain.com/reset-password?token=${token}`
+});
+
 try{
   await sendMail({
-    html: `
-      <h1>Hello, ${user.name || 'User'}</h1>
-      <p>Here is your password reset link: <a href="http://yourdomain.com/reset-password?token=
-      ${token}">Reset Password</a></p>
-    `,
+    html,
     to: email,
     from: env(ENV_VARS.SMTP_USER),
     subject: 'Reset your password',

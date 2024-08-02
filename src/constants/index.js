@@ -1,3 +1,5 @@
+import path from 'node:path';
+
 export const ENV_VARS = {
 PORT: 'PORT',
 MONGODB_USER: 'MONGODB_USER',
@@ -17,3 +19,6 @@ CLOUD_NAME: 'CLOUD_NAME',
 API_KEY: 'API_KEY',
 API_SECRET: 'API_SECRET'
 };
+
+
+export const TEMLATE_DIR = path.join(process.cwd(), 'src', 'temlates');
