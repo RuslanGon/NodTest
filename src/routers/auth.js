@@ -6,7 +6,7 @@ import {
   refreshTokenController,
   registorUserController,
   resetPasswordController,
-  resetRequestEmail,
+  resetRequestEmailController,
 } from '../controllers/auth.js';
 import { validationBody } from '../middlewares/validationBody.js';
 import { registorUserSchema } from '../validation/registorUserSchema.js';
@@ -37,7 +37,7 @@ ctrlWrapper(logoutController));
 userRouter.post(
   '/request-reset-password-email',
   validationBody(resetRequestEmailSchema),
-  ctrlWrapper(resetRequestEmail),
+  ctrlWrapper(resetRequestEmailController),
 );
 
 userRouter.post(

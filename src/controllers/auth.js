@@ -64,7 +64,7 @@ res.json({
 });
 };
 
-export const resetRequestEmail = async (req, res) => {
+export const resetRequestEmailController = async (req, res) => {
 await resetRequestPasswordEmail(req.body.email);
 
 res.json({
