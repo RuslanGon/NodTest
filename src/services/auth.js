@@ -95,12 +95,18 @@ export const resetRequestPasswordEmail = async (email) => {
     { expiresIn: '5m' }
   );
 
+try{
   await sendMail({
     html: `
       <h1>Hello, ${user.name || 'User'}</h1>
       <p>Here is your password reset link: <a href="http://yourdomain.com/reset-password?token=${token}">Reset Password</a></p>
     `,
     to: email,
-    subject: 'Reset your password'
+    subject: 'Reset your password',
   });
+}catch(err){
+console.log(err);
+throw createHttpError(500, 'Problem with sending emails');
+}
+
 };
