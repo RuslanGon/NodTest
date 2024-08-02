@@ -107,12 +107,12 @@ export const resetRequestPasswordEmail = async (email) => {
     path.join(TEMLATE_DIR, 'reset-password-email.html'),
   );
 
-const template = handlebars.compile(templateSource.toString());
+  const template = handlebars.compile(templateSource.toString());
 
-const html = template({
-  name: user.name,
-  link: `http://yourdomain.com/reset-password?token=${token}`
-});
+  const html = template({
+    name: user.name,
+    link: `http://yourdomain.com/reset-password?token=${token}`,
+  });
 
 try{
   await sendMail({
