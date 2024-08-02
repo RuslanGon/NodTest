@@ -1,10 +1,13 @@
 import { User } from "../db/models/user.js";
 import createHttpError from 'http-errors';
 import jwt from 'jsonwebtoken';
-
+import { env } from "../utils/env.js";
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import { Session } from "../db/models/session.js";
+import { ENV_VARS } from "../constants/index.js";
+
+
 
 const createSession = () => {
   return {
@@ -92,6 +95,8 @@ if(!user){
 throw createHttpError(404, 'User is not found');
 }
 
-const token = jwt.sign();
+const token = jwt.sign({
+  email,
+}, env(ENV_VARS.JWT_SECRET));
 
 };
