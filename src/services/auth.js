@@ -107,9 +107,9 @@ const token = jwt.sign(
 );
 
 await sendMail({
-html: `<h1>Hello Ruslan</h1>
-<p> Here is oyur reset link</p>
-`
+  html: `<h1>Hello Ruslan</h1>
+         <p> Here is oyur reset link <a href="">link</a></p>
+`,
 });
 
 };
