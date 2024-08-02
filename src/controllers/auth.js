@@ -1,4 +1,4 @@
-import { createUser, loginUser, logoutUser, refreshSession } from "../services/auth.js";
+import { createUser, loginUser, logoutUser, refreshSession, resetRequestPasswordEmail } from "../services/auth.js";
 
 const setudSessionCookies = (res, session) => {
   res.cookie('sessionId', session._id, {

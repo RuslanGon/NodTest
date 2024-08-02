@@ -83,6 +83,6 @@ if(!user){
 };
 
 
-export const resetRequestPasswordEmail = async () => {
+export const resetRequestPasswordEmail = async (email) => {
 
 };
