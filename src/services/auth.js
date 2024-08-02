@@ -84,5 +84,8 @@ if(!user){
 
 
 export const resetRequestPasswordEmail = async (email) => {
-
+const user = await User.findOne({ email});
+if(!user){
+throw createHttpError(404, 'User is not found');
+}
 };
