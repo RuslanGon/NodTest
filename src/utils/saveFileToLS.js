@@ -12,5 +12,8 @@ export const saveFileToLS = async (file) => {
   // Запись содержимого в новый файл
   await fs.writeFile(newPath, content);
 
+  // Виделення содержимого з файл
+  await fs.unlink(file.path);
+
   return newPath;
 };
