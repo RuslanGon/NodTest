@@ -22,3 +22,6 @@ API_SECRET: 'API_SECRET'
 
 
 export const TEMLATE_DIR = path.join(process.cwd(), 'src', 'temlates');
+
+export const TEMPLATE_UPLOAD_DIR = path.join(process.cwd(), 'temp');
+

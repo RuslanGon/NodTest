@@ -2,7 +2,7 @@ import createHttpError from 'http-errors';
 
 export const validationBody = (schema) => async (req, res, next) => {
   try {
-    await schema.validationAsync(req.body, {abortEarly: false, covert: false});
+    await schema.validationAsync(req.body, {abortEarly: false});
     next();
   } catch (err) {
     next(

@@ -14,6 +14,8 @@ import { createStudentSchema } from '../validation/createStudentSchema.js';
 import { updateStudentSchema } from '../validation/updateStudentSchema.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { checkRoles } from '../middlewares/checkRoles.js';
+import { upload } from '../middlewares/upload.js';
+
 
 const studentRouter = Router();
 
@@ -31,6 +33,7 @@ studentRouter.get(
 
 studentRouter.post(
   '/',
+  upload.single('avatar'),
   validationBody(createStudentSchema),
   ctrlWrapper(createStudentController),
 );
