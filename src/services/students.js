@@ -74,7 +74,7 @@ if(!student){
 };
 
 export const createStudent = async ({ avatar, ...payload }, userId) => {
-  const url = saveFileToLS(avatar);
+  const url = await saveFileToLS(avatar);
   const student = await Student.create({...payload, parentId: userId, avatarUrl: url});
 
   return student;
