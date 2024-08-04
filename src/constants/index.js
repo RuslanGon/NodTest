@@ -25,3 +25,6 @@ export const TEMLATE_DIR = path.join(process.cwd(), 'src', 'temlates');
 
 export const TEMPLATE_UPLOAD_DIR = path.join(process.cwd(), 'temp');
 
+export const UPLOAD_DIR = path.join(process.cwd(), 'upload');
+
+
