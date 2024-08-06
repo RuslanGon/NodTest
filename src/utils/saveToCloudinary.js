@@ -8,6 +8,7 @@ cloudinary.config({
     api_secret: env(ENV_VARS.API_SECRET) // Click 'View Credentials' below to copy your API secret
 });
 
+
 export const saveToCloudinary = (file) => {
 return 'url';
 };
