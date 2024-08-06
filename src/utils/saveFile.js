@@ -4,6 +4,8 @@ import { saveToCloudinary } from './saveToCloudinary.js';
 import { saveFileToLS } from './saveFileToLS.js';
 
 export const saveFile = async (file) => {
+    if(!file)return;
+
   let url;
 
   if (env(ENV_VARS.IS_CLOUDINARY_ENABLED) === 'true') {
