@@ -1,6 +1,7 @@
 import { Student } from "../db/models/student.js";
 import createHttpError from 'http-errors';
 import { saveFileToLS } from "../utils/saveFileToLS.js";
+import { saveToCloudinary } from "../utils/saveToCloudinary.js";
 
 export const createPaginationInformation = (page, perPage, count) => {
   const totalPages = Math.ceil(count / perPage);
@@ -74,7 +75,9 @@ if(!student){
 };
 
 export const createStudent = async ({ avatar, ...payload }, userId) => {
-  const url = await saveFileToLS(avatar);
+  // const url = await saveFileToLS(avatar);saveToCloudinary
+  const url = await saveToCloudinary(avatar);
+
   const student = await Student.create({...payload, parentId: userId, avatarUrl: url});
 
   return student;
