@@ -153,11 +153,15 @@ export const loginOrSingupWithGoogleOAuth = async (code) => {
 
   if (!payload) throw createHttpError(401);
 
-  const user = await User.findOne({
+  let user = await User.findOne({
     email: payload.email,
   });
 
   if (!user) {
+    user = await User.create({
+      name: payload.given_name + '' + payload.family_name,
+      password: await bcrypt.hash(crypto.randomBytes(10).toString('base64')),
+    });
     return;
   }
   return await Session.create({
