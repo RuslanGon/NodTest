@@ -1,6 +1,7 @@
 import { OAuth2Client } from 'google-auth-library';
 import fs from 'node:fs';
 import path from 'node:path';
+import createHttpError from 'http-errors';
 import { env } from './env.js';
 import { ENV_VARS } from '../constants/index.js';
 
@@ -22,5 +23,13 @@ scope: [
     "https://www.googleapis.com/auth/userinfo.email"
 ],
 });
+};
+
+export const validateGoogleOAuthCode = async (code) => {
+const { tokens } = await client.getToken(code);
+
+const idToken = tokens.id_token;
+
+if(!idToken) throw createHttpError(401);
 
 };
