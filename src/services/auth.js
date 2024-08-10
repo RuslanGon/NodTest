@@ -149,5 +149,19 @@ await User.findOneAndUpdate({
 };
 
 export const loginOrSingupWithGoogleOAuth = async (code) => {
-return await validateGoogleOAuthCode(code);
+  const payload = await validateGoogleOAuthCode(code);
+
+  if (!payload) throw createHttpError(401);
+
+  const user = await User.findOne({
+    email: payload.email,
+  });
+
+  if (!user) {
+    return;
+  }
+  return await Session.create({
+    userId: user._id,
+    ...createSession(),
+  });
 };
