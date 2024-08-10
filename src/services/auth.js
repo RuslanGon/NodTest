@@ -166,7 +166,6 @@ export const loginOrSingupWithGoogleOAuth = async (code) => {
       name: `${given_name} ${family_name}`,
       password: hashedPassword,
     });
-    return;
   }
   return await Session.create({
     userId: user._id,
