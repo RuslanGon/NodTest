@@ -34,6 +34,8 @@ export const validateGoogleOAuthCode = async (code) => {
           throw createHttpError(401, 'Invalid ID token received');
       }
 
+      const ticket = await client.verifyIdToken(idToken);
+
       return tokens;
   } catch (err) {
       console.error('Google OAuth authorization error:', err);
