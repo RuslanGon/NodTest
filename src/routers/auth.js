@@ -13,6 +13,7 @@ import { registorUserSchema } from '../validation/registorUserSchema.js';
 import { loginUserSchema } from '../validation/loginUserSchema.js';
 import { resetRequestEmailSchema } from '../validation/resetRequestEmail.js';
 import { resetPasswordSchema } from '../validation/resetPasswordSchema.js';
+import { generateOAuthURL } from '../utils/googleOauht.js';
 
 const userRouter = Router();
 
@@ -45,5 +46,7 @@ userRouter.post(
   validationBody(resetPasswordSchema),
   ctrlWrapper(resetPasswordController),
 );
+
+userRouter.post('/get-oauth-url', ctrlWrapper(generateOAuthURL));
 
 export default userRouter;
