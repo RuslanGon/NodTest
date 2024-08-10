@@ -70,7 +70,7 @@ await resetRequestPasswordEmail(req.body.email);
 
 res.json({
   status: 200,
-  message: 'Reset password email was successfuly send',
+  message: 'Reset password email was successfully send',
   data: {},
 });
 };
@@ -81,7 +81,7 @@ export const resetPasswordController = async (req, res) => {
 
   res.json({
     status: 200,
-    message: 'Reset password email was successfuly send',
+    message: 'Reset password email was successfully send',
     data: {},
   });
   };
@@ -90,7 +90,17 @@ export const generateOAuthURLController = (req, res) => {
 const url = generateOAuthURL();
 res.json({
 status: 200,
-message: 'Successfuly received oauth url',
+message: 'Successfully received oauth url',
 data: {url}
 });
 };
+
+export const verifyGoogleOAuthController = (req, res) => {
+  const { code } = req.body;
+  const url = generateOAuthURL();
+  res.json({
+  status: 200,
+  message: 'Successfuly received oauth url',
+  data: {url}
+  });
+  };

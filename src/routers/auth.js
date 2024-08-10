@@ -8,12 +8,14 @@ import {
   registorUserController,
   resetPasswordController,
   resetRequestEmailController,
+  verifyGoogleOAuthController,
 } from '../controllers/auth.js';
 import { validationBody } from '../middlewares/validationBody.js';
 import { registorUserSchema } from '../validation/registorUserSchema.js';
 import { loginUserSchema } from '../validation/loginUserSchema.js';
 import { resetRequestEmailSchema } from '../validation/resetRequestEmail.js';
 import { resetPasswordSchema } from '../validation/resetPasswordSchema.js';
+import { validGoodleOAuthSchema } from '../validation/validGoogleOAuth.js';
 // import { generateOAuthURL } from '../utils/googleOauht.js';
 
 const userRouter = Router();
@@ -49,5 +51,12 @@ userRouter.post(
 );
 
 userRouter.post('/get-oauth-url', ctrlWrapper(generateOAuthURLController));
+
+userRouter.post(
+  '/verify-google-oauth',
+  validationBody(validGoodleOAuthSchema),
+  ctrlWrapper(verifyGoogleOAuthController),
+);
+
 
 export default userRouter;
