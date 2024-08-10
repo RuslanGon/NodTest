@@ -157,10 +157,14 @@ export const loginOrSingupWithGoogleOAuth = async (code) => {
     email: payload.email,
   });
 
+  const {email, given_name, family_name } = payload;
+
   if (!user) {
+    const hashedPassword = await bcrypt.hash(crypto.randomBytes(10).toString('base64'), 10);
     user = await User.create({
-      name: payload.given_name + '' + payload.family_name,
-      password: await bcrypt.hash(crypto.randomBytes(10).toString('base64')),
+      email,
+      name: `${given_name} ${family_name}`,
+      password: hashedPassword,
     });
     return;
   }

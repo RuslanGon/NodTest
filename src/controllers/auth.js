@@ -97,10 +97,13 @@ data: {url}
 
 export const verifyGoogleOAuthController = async (req, res) => {
   const { code } = req.body;
-  const ticket = await loginOrSingupWithGoogleOAuth(code);
+  const session = await loginOrSingupWithGoogleOAuth(code);
+
+  setudSessionCookies(res, session);
+
   res.json({
-  status: 200,
-  message: 'Successfuly received oauth url',
-  data: {ticket}
+    status: 200,
+    message: 'Logged in with Google OAuth',
+    data: { accessToken: session.accessToken },
   });
   };
