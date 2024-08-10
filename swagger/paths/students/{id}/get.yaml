@@ -1,4 +1,4 @@
-# swagger/paths/studens/{id}/get.yaml
+
 tags:
   - Students
 summary: Get student by id
