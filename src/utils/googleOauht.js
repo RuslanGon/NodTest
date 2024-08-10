@@ -15,13 +15,12 @@ project_id: googleConfig.project_id,
 redirectUri: googleConfig.redirect_uris[0],
 });
 
-const generateOAuthURL = () => {
+export const generateOAuthURL = () => {
 return client.generateAuthUrl({
 scope: [
     "https://www.googleapis.com/auth/userinfo.profile",
     "https://www.googleapis.com/auth/userinfo.email"
 ],
 });
-
 
 };
