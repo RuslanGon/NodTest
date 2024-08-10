@@ -11,5 +11,17 @@ const googleConfig = JSON.parse(
 const client = new OAuth2Client({
 clientId: env(ENV_VARS.GOOGLE_CLIENT_ID),
 clientSecret: env(ENV_VARS.GOOGLE_CLIENT_SECRET),
-project_id: ''
+project_id: googleConfig.project_id,
+redirectUri: googleConfig.redirect_uris[0],
 });
+
+const generateOAuthURL = () => {
+return client.generateAuthUrl({
+scope: [
+    "https://www.googleapis.com/auth/userinfo.profile",
+    "https://www.googleapis.com/auth/userinfo.email"
+],
+});
+
+
+};
