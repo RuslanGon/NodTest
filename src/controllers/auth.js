@@ -1,4 +1,5 @@
 import { createUser, loginUser, logoutUser, refreshSession, resetPassword, resetRequestPasswordEmail } from "../services/auth.js";
+import { generateOAuthURL } from "../utils/googleOauht.js";
 
 const setudSessionCookies = (res, session) => {
   res.cookie('sessionId', session._id, {
@@ -84,3 +85,12 @@ export const resetPasswordController = async (req, res) => {
     data: {},
   });
   };
+
+export const generateOAuthURLController = (req, res) => {
+const url = generateOAuthURL();
+res.json({
+status: 200,
+message: 'Successfuly received oauth url',
+data: {url}
+});
+};
