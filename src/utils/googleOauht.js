@@ -26,10 +26,17 @@ scope: [
 };
 
 export const validateGoogleOAuthCode = async (code) => {
-const { tokens } = await client.getToken(code);
+  try {
+      const { tokens } = await client.getToken(code);
+      const idToken = tokens.id_token;
 
-const idToken = tokens.id_token;
+      if (!idToken) {
+          throw createHttpError(401, 'Invalid ID token received');
+      }
 
-if(!idToken) throw createHttpError(401);
-
+      return tokens;
+  } catch (err) {
+      console.error('Google OAuth authorization error:', err);
+      throw createHttpError(500, 'Error during Google OAuth authorization');
+  }
 };
