@@ -34,9 +34,16 @@ export const validateGoogleOAuthCode = async (code) => {
           throw createHttpError(401, 'Invalid ID token received');
       }
 
-      const ticket = await client.verifyIdToken(idToken);
+      // Проверяем и декодируем ID токен
+      const ticket = await client.verifyIdToken({
+          idToken,
+          audience: env(ENV_VARS.GOOGLE_CLIENT_ID), // ID клиента для проверки
+      });
+      const payload = ticket.getPayload();
 
-      return tokens;
+      // Здесь можно добавить дополнительную логику с payload, если необходимо
+
+      return { tokens, payload }; // Возвращаем токены и payload
   } catch (err) {
       console.error('Google OAuth authorization error:', err);
       throw createHttpError(500, 'Error during Google OAuth authorization');

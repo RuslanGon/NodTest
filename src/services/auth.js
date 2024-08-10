@@ -10,6 +10,7 @@ import path from 'node:path';
 import { Session } from "../db/models/session.js";
 import { ENV_VARS, TEMLATE_DIR } from "../constants/index.js";
 import { sendMail } from "../utils/sendMail.js";
+import { validateGoogleOAuthCode } from "../utils/googleOauht.js";
 
 
 
@@ -145,4 +146,8 @@ await User.findOneAndUpdate({
 },
 { password: hashedPassword}
 );
+};
+
+export const loginOrSingupWithGoogleOAuth = async (code) => {
+return await validateGoogleOAuthCode(code);
 };
