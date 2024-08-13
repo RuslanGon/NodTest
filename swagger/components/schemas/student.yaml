@@ -6,3 +6,26 @@ required:
 - age
 - gender
 - onDuty
+properties:
+_id:
+example:
+type: string
+name:
+example: Ruslan
+type: string
+avgMark:
+example: 10.1
+type: numder
+age:
+example: 37
+type: number
+gender:
+example:
+enum:
+- male
+- female
+- other
+type: string
+onDuty:
+example: false
+type: boolean
