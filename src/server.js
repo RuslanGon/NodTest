@@ -38,7 +38,7 @@ app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 
 
-const PORT = env(ENV_VARS.PORT, 3000);
+const PORT = env(ENV_VARS.PORT, 3001);
 app.listen(PORT, () => {
     console.log(`server is running on ${PORT}`);
   });
