@@ -1,4 +1,4 @@
- description: 'Unauthorize '
+ description: 'Unauthorized'
     content:
       application/json:
         schema:
@@ -10,10 +10,10 @@
           properties:
             status:
               type: integer
-              example: 200
+              example: 401
             message:
               type: string
-              example: Successfully found student with id 65ca67e7ae7f10c88b598384!
+              example: Unauthorized
             data:
               type: object
 
