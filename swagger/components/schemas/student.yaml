@@ -6,6 +6,8 @@ required:
   - age
   - gender
   - onDuty
+  - photo
+  - parentId
 properties:
   _id:
     type: string
@@ -33,5 +35,11 @@ properties:
     oneOf:
       - type: string
         example: "67890"
+      - type: "null"
+        example: null
+  photo:
+    oneOf:
+      - type: string
+        example: some-url
       - type: "null"
         example: null
