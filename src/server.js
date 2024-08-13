@@ -7,6 +7,7 @@ import { errorHandlerMiddleware } from './middlewares/errorHandlerMiddleware.js'
 import { notFoundMiddleware } from './middlewares/notFoundMiddleware.js';
 import rootRouter from './routers/index.js';
 import cookiesParser from 'cookie-parser';
+import { swagger } from './middlewares/swagger.js';
 
 
 
@@ -22,6 +23,8 @@ app.use(pino({
   }
 }
 ));
+
+app.use('/api-docs', ...swagger());
 
 app.use(cors());
 
