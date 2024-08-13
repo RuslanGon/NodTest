@@ -24,7 +24,7 @@ app.use(pino({
 }
 ));
 
-// app.use('/api-docs', ...swagger());
+// app.use('/api-docs', swagger());
 
 app.use(cors());
 
